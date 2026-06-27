@@ -48,6 +48,7 @@ When solving a problem, explicitly connect it to a reusable pattern if one appli
 - **Remove/filter in-place → forward write pointer** (`index` tracks next write slot; iterate with `i`, write `nums[i]` to `nums[index]` when condition is met, return `index` as `k`). No shifting, no extra space. O(n) time, O(1) space.
 - **Remove duplicates (allow at most m copies) → write pointer offset by m** (`index` starts at `m`; for `i` in `range(m, len(nums))`, write when `nums[i] != nums[index - m]`). Guard `if len(nums) <= m: return len(nums)` to handle short arrays.
 - **Majority element → Boyer-Moore Voting** (`candidate` + `count`; reset candidate when count hits 0, increment on match, decrement on mismatch). Guaranteed correct when majority element always exists. O(n) time, O(1) space.
+- **Rotate array → slice reassignment** (`k = k % n` to normalise, split at `n - k`, then `nums[:] = nums[split:] + nums[:split]`). O(n) time, O(n) aux space. O(1) space alternative: reverse whole array, reverse first k, reverse rest.
 
 Always name the pattern explicitly so the user builds a mental catalogue they can match against in interviews.
 
@@ -63,3 +64,5 @@ Always name the pattern explicitly so the user builds a mental catalogue they ca
 - **Read pointer vs write pointer confusion**: comparing `nums[i]` against `nums[i-1]` (adjacent read) is wrong when the write pointer has diverged from the read pointer. Always compare against `nums[index - offset]` (last written position).
 - **Self-swap is a no-op**: when both pointers start at the same position and advance together, swaps do nothing useful.
 - **Starting `index` too high**: if `index` initialises to `m` but the array has fewer than `m` elements, the loop never runs and returns the wrong count. Guard with `if len(nums) <= m: return len(nums)`.
+- **`nums = ...` vs `nums[:] = ...`**: assigning to the local name `nums` rebinds the variable and the caller never sees the change. Use slice assignment `nums[:] = ...` to mutate the original list in-place.
+- **`k % n` to normalise rotation**: when `k >= n`, rotating by `k` is equivalent to rotating by `k % n`. Always reduce first to avoid out-of-bounds or wasted work.
