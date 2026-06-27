@@ -8,6 +8,7 @@ buy before you sell. Return 0 if no profit is possible.
 from typing import Any, List
 
 
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         minBuyPriceInt:int = prices[0]
