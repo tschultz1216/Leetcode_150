@@ -76,6 +76,30 @@ LeetCode array problems practiced with solutions and explanations.
 
 ---
 
+### [Jump Game II](./jump_game_ii.py)
+**LeetCode 45** — Given jump lengths at each index, return the minimum number of jumps to reach the last index.
+
+- **Pattern:** Greedy level expansion — track `farthest` and `current_end` boundary
+- **Complexity:** O(n) time, O(1) space
+
+---
+
+### [H-Index](./h_index.py)
+**LeetCode 274** — Given citation counts, return the maximum h such that at least h papers have at least h citations each.
+
+- **Pattern:** Sort descending, walk until `citations[i] < i + 1`
+- **Complexity:** O(n log n) time, O(1) space. O(n) time possible with counting sort (bucket by citation count capped at n)
+
+---
+
+### [Insert Delete GetRandom O(1)](./randomized_set.py)
+**LeetCode 380** — Implement a set with O(1) insert, remove, and getRandom (uniform probability).
+
+- **Pattern:** List + HashMap — list for O(1) random access, map for O(1) index lookup; swap-and-pop for O(1) removal
+- **Complexity:** O(1) average time per operation, O(n) space
+
+---
+
 ## Core Patterns
 
 | Tell | Pattern | Key Operation |
@@ -87,8 +111,8 @@ LeetCode array problems practiced with solutions and explanations.
 | Rotate by k steps | Slice reassignment + modulo | `nums[:] = nums[n-k:] + nums[:n-k]` |
 | Single buy/sell transaction | Running minimum + max profit | `profit = max(profit, price - min_price)` |
 | Unlimited buy/sell transactions | Sum positive consecutive diffs | `profit += prices[i] - prices[i-1]` if positive |
-| Max jump length at each position | Greedy waterline | `max_reach = max(max_reach, i + nums[i])` |
+| Yes/no reachability, max jump lengths | Greedy waterline | `max_reach = max(max_reach, i + nums[i])` |
+| Minimum jumps, max jump lengths | Greedy level expansion | Increment jumps when `i == current_end`, set `current_end = farthest` |
+| Maximum h where h papers have ≥ h citations | Sort descending, walk until rank exceeds count | `citations[i] < i + 1` → return `i` |
+| O(1) insert/remove/random on a set | List + HashMap with swap-and-pop | Map stores index; swap removed element with last, pop tail, update map |
 
-## Key Insight
-
-> When a problem moves forward through an array and the best local decision is never wrong in hindsight, a single O(n) greedy pass with one or two running variables is sufficient. No backtracking, no extra space.
