@@ -49,8 +49,20 @@ When solving a problem, explicitly connect it to a reusable pattern if one appli
 - **Remove duplicates (allow at most m copies) → write pointer offset by m** (`index` starts at `m`; for `i` in `range(m, len(nums))`, write when `nums[i] != nums[index - m]`). Guard `if len(nums) <= m: return len(nums)` to handle short arrays.
 - **Majority element → Boyer-Moore Voting** (`candidate` + `count`; reset candidate when count hits 0, increment on match, decrement on mismatch). Guaranteed correct when majority element always exists. O(n) time, O(1) space.
 - **Rotate array → slice reassignment** (`k = k % n` to normalise, split at `n - k`, then `nums[:] = nums[split:] + nums[:split]`). O(n) time, O(n) aux space. O(1) space alternative: reverse whole array, reverse first k, reverse rest.
+- **Single best transaction → track running minimum + max profit** (one buy, one sell; at each step ask "if I sell today, what's my profit?" — update `min_price` when cheaper, update `profit` when `today - min_price` is better). **Tell:** "single day to buy, different day in the future to sell."
+- **Unlimited transactions → sum all positive day-over-day differences** (capture every upward movement; `profit += prices[i] - prices[i-1]` whenever positive). No need to track pairs. **Tell:** "you may buy and sell multiple times" or "on each day you may decide to buy and/or sell." If you can transact freely, holding through a gain is equivalent to chaining single-day trades.
+- **Greedy reachability → track max_reach waterline** (at each index `i`, if `i > max_reach` return False; otherwise `max_reach = max(max_reach, i + nums[i])`). **Tell:** "maximum jump length at each position", forward-only movement, yes/no reachability question. Use greedy (not Dijkstra's) when: locally optimal choices are never revisited, a single running value is sufficient, and the problem is linear with no backtracking.
 
 Always name the pattern explicitly so the user builds a mental catalogue they can match against in interviews.
+
+## Greedy Recognition Guide
+Use greedy when ALL of the following hold:
+1. **No revisiting** — the best local choice now is still the best choice later; you never need to undo a decision
+2. **Single running value** — the solution reduces to tracking one variable that only moves in one direction (max_reach grows, min_price shrinks, profit accumulates)
+3. **Linear structure** — the problem moves forward through the input without branching paths that need comparing
+4. **Yes/no, max, or min** — not asking for all solutions or all paths
+
+Greedy is NOT Dijkstra's: Dijkstra's finds shortest path in a weighted graph using a priority queue (O(n log n), O(n) space). Greedy here is O(n) time, O(1) space — no graph, no queue, no cost tracking.
 
 ## Problem File Conventions
 - One problem per file under `arrays/`, named `snake_case.py`

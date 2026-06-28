@@ -23,26 +23,44 @@ The goal is not just to solve problems — it is to build a reusable mental cata
 │   ├── remove_element.py
 │   ├── remove_duplicates.py
 │   ├── remove_duplicates_ii.py
-│   └── majority_element.py
+│   ├── majority_element.py
+│   ├── rotate_array.py
+│   ├── best_time_to_buy_sell_stock.py
+│   ├── best_time_to_buy_sell_stock_ii.py
+│   └── jump_game.py
 └── .bob/
     └── agents.md          # Pattern library and project instructions for Bob
 ```
 
 ## Patterns Covered So Far
 
-| Pattern | Problems |
-|---|---|
-| Two pointers — fill from back | Merge Sorted Array |
-| Forward write pointer | Remove Element, Remove Duplicates I & II |
-| Write pointer offset by m | Remove Duplicates II |
-| Boyer-Moore Voting | Majority Element |
+### Arrays
+
+| Pattern | Tell | Problems |
+|---|---|---|
+| Two pointers — fill from back | Merge two sorted inputs into one in-place | Merge Sorted Array |
+| Forward write pointer | Remove/filter elements in-place, return count | Remove Element, Remove Duplicates I & II |
+| Write pointer offset by m | Allow at most m copies of each element | Remove Duplicates II |
+| Boyer-Moore Voting | "appears more than n/2 times" | Majority Element |
+| Slice reassignment + modulo | Rotate array by k steps in-place | Rotate Array |
+| Running minimum + max profit | "single day to buy, different day to sell" | Best Time to Buy and Sell Stock |
+| Sum positive day-over-day diffs | "buy and sell multiple times" | Best Time to Buy and Sell Stock II |
+| Greedy reachability (waterline) | "maximum jump length at each position" | Jump Game |
+
+## Greedy — When to Use It
+
+A greedy approach is appropriate when:
+- Locally optimal choices don't need to be revisited
+- A single pass with a running value (max, min, sum) is enough
+- The problem asks for a yes/no, max, or min — not all solutions
+- You never need to look back at a previous decision
 
 ## Running a Problem
 
 Each file is self-contained and runnable:
 
 ```bash
-python3 arrays/majority_element.py
+python3 arrays/jump_game.py
 ```
 
 Test output uses `✅` / `❌` to show pass/fail alongside the actual and expected values.
