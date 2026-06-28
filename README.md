@@ -47,14 +47,6 @@ The goal is not just to solve problems — it is to build a reusable mental cata
 | Sum positive day-over-day diffs | "buy and sell multiple times" | Best Time to Buy and Sell Stock II |
 | Greedy reachability (waterline) | "maximum jump length at each position" | Jump Game |
 
-## Greedy — When to Use It
-
-A greedy approach is appropriate when:
-- Locally optimal choices don't need to be revisited
-- A single pass with a running value (max, min, sum) is enough
-- The problem asks for a yes/no, max, or min — not all solutions
-- You never need to look back at a previous decision
-
 ## Running a Problem
 
 Each file is self-contained and runnable:
