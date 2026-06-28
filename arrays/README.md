@@ -100,6 +100,22 @@ LeetCode array problems practiced with solutions and explanations.
 
 ---
 
+### [Product of Array Except Self](./product_except_self.py)
+**LeetCode 238** — Return an array where each element is the product of all other elements. O(n) time, no division.
+
+- **Pattern:** Prefix and suffix product arrays — two passes, combine with multiplication
+- **Complexity:** O(n) time, O(n) space
+
+---
+
+### [Gas Station](./gas_station.py)
+**LeetCode 134** — Find the starting gas station index to complete a circular route, or return -1 if impossible.
+
+- **Pattern:** Greedy — track running tank; when tank goes negative, reset start to next station; validate with total gas check
+- **Complexity:** O(n) time, O(1) space
+
+---
+
 ## Core Patterns
 
 | Tell | Pattern | Key Operation |
@@ -115,4 +131,6 @@ LeetCode array problems practiced with solutions and explanations.
 | Minimum jumps, max jump lengths | Greedy level expansion | Increment jumps when `i == current_end`, set `current_end = farthest` |
 | Maximum h where h papers have ≥ h citations | Sort descending, walk until rank exceeds count | `citations[i] < i + 1` → return `i` |
 | O(1) insert/remove/random on a set | List + HashMap with swap-and-pop | Map stores index; swap removed element with last, pop tail, update map |
+| Product of all elements except self, no division | Prefix × suffix product arrays | Two passes: left running product, right running product, multiply together |
+| Circular route — find valid start or -1 | Greedy candidate reset | Reset start when tank < 0; valid only if `sum(gas) >= sum(cost)` |
 
