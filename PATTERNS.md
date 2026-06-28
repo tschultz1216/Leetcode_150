@@ -20,8 +20,12 @@ Use greedy when the best local decision at each step is never wrong in hindsight
 |---|---|---|
 | "single day to buy, different day to sell" | Track running minimum + max profit | Best Time to Buy and Sell Stock |
 | "buy and sell multiple times" | Sum all positive day-over-day diffs | Best Time to Buy and Sell Stock II |
-| "maximum jump length at each position" | Track `max_reach` waterline | Jump Game |
+| "maximum jump length at each position", yes/no reachability | Track `max_reach` waterline; return False when `i > max_reach` | Jump Game |
+| "minimum jumps", forward-only movement | Level expansion — increment jumps when `i == current_end`, set `current_end = farthest` | Jump Game II |
+| Circular route, find valid start or -1 | Reset candidate start when tank < 0; valid only if `sum(gas) >= sum(cost)` | Gas Station |
 | "minimum arrows / groups to cover" | Sort by start, tighten window with `min()` | Minimum Arrows to Burst Balloons |
+
+**Greedy + local failure eliminates prior candidates:** if running out of gas at `i` means no station between start and `i` can work either, skip all of them and try `i + 1`. This is the core of Gas Station and Jump Game II.
 
 ---
 
@@ -68,6 +72,30 @@ Use when a cyclic or wrapping behaviour can be expressed as a remainder.
 |---|---|---|
 | Rotate by k steps (k may exceed length) | `k = k % n` to normalise, then slice | Rotate Array |
 | Index wraps around | `index % n` | Circular buffer problems |
+
+---
+
+## Prefix / Suffix Products
+
+Use when each position needs aggregate information from both sides and division is forbidden or unavailable.
+
+| Tell | Pattern | Example |
+|---|---|---|
+| "product of all elements except self", no division | Two-pass prefix × suffix | Product of Array Except Self |
+
+**How it works:** build `left[i]` = product of everything before `i` (left to right pass), build `right[i]` = product of everything after `i` (right to left pass), then `answer[i] = left[i] * right[i]`. Initialise both arrays with `[1] * n` — 1 is the multiplicative identity so unfilled slots don't corrupt results.
+
+---
+
+## Hash Map + List (O(1) Access + O(1) Random)
+
+Use when you need O(1) insert, O(1) delete, and O(1) uniform random access — none of which a single structure provides alone.
+
+| Tell | Pattern | Example |
+|---|---|---|
+| "each function works in O(1) time", insert/remove/getRandom | List for indexed access + dict mapping value → index; swap-and-pop on remove | Insert Delete GetRandom O(1) |
+
+**Swap-and-pop:** to remove an element without shifting, overwrite its slot with the last element, pop the tail, update the map. O(1) versus O(n) for a naive removal.
 
 ---
 
