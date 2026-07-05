@@ -8,13 +8,13 @@ some (can be none) of the characters without disturbing the relative positions o
 characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
 """
 import re
-from tokenize import Triple
 
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        ## Two pointers
-        if len(s) > len(t):return False
-        if len(s) == 0:return True
+        if len(s) > len(t):
+            return False
+        if len(s) == 0:
+            return True
         subsequence=0
         for i in range(0,len(t)):
             if subsequence <= len(s) -1:
